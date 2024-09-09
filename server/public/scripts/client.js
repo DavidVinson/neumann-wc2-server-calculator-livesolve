@@ -14,15 +14,20 @@ function fetchCalculations() {
       console.log('Calculations data array', calcData);
       const calcHistory = document.getElementById('resultHistory');
       const calcRecent = document.getElementById('recentResult');
-
-      calcRecent.innerHTML = `<h2>${calcData[calcData.length - 1].result}</h2>`;
-      calcHistory.innerHTML = '';
-      for (let calc of calcData) {
-        console.log('calculation obj', calc);
-        calcHistory.innerHTML += `
+      calcRecent.innerHTML = '';
+      if (calcData.length > 0) {
+        calcRecent.innerHTML = `<h2>${calcData[calcData.length - 1].result}</h2>`;
+        calcHistory.innerHTML = '';
+        for (let calc of calcData) {
+          console.log('calculation obj', calc);
+          calcHistory.innerHTML += `
         <ul>
             <li>${calc.numOne} ${calc.operator} ${calc.numTwo} = ${calc.result}</li>
         </ul>`;
+        }
+      } else {
+        console.log('No calculations to grab.');
+        calcHistory.innerHTML = `<ul><li>No calculations to grab</li></ul>`;
       }
     })
     .catch((error) => {
@@ -48,6 +53,8 @@ function addCalculation(event) {
   axios.post('/calculations', newCalculation).then((response) => {
     console.log('successful post');
     fetchCalculations();
+    document.getElementById('numOneInput').value = '';
+    document.getElementById('num-two-input').value = '';
   });
 }
 
@@ -55,6 +62,22 @@ function setOperator(event) {
   event.preventDefault();
   console.log(event.target.id);
   operator = event.target.id;
+}
+
+function clearHistory(event) {
+  //delete request to server
+  console.log('clear server calc history');
+  axios
+    .delete('/calculations')
+    .then((response) => {
+      console.log('refresh dom');
+      fetchCalculations();
+      document.getElementById('numOneInput').value = '';
+      document.getElementById('num-two-input').value = '';
+    })
+    .catch((error) => {
+      console.error('Error Clearing Calc History', error);
+    });
 }
 
 onReady();
