@@ -45,6 +45,13 @@ app.post('/calculations', (req, res) => {
   res.sendStatus(201); //201 created
 });
 
+//need a delete route
+app.delete('/calculations', (req, res) => {
+  //now set calculations array length to zero
+  calculations.length = 0;
+  res.sendStatus(204);
+});
+
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸 🐻‍❄️ 🐼 🐨 🐨 🐼 🐼 📉 <(bear market)
 
