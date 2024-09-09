@@ -13,6 +13,9 @@ function fetchCalculations() {
       const calcData = response.data;
       console.log('Calculations data array', calcData);
       const calcHistory = document.getElementById('resultHistory');
+      const calcRecent = document.getElementById('recentResult');
+
+      calcRecent.innerHTML = `<h2>${calcData[calcData.length - 1].result}</h2>`;
       calcHistory.innerHTML = '';
       for (let calc of calcData) {
         console.log('calculation obj', calc);
