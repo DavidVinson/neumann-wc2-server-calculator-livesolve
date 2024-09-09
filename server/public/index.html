@@ -9,7 +9,7 @@
   <body>
     <h1>Server-Side Calculator</h1>
 
-    <form data-testid="calculator" onsubmit="addCalculation(event)">
+    <form data-testid="calculator" onsubmit="addCalculation(event)" id="calc-form">
       <input id="numOneInput" data-testid="numOne" placeholder="First Number" />
       <button type="button" id="+" onclick="setOperator(event)">+</button>
       <button type="button" id="-" onclick="setOperator(event)">-</button>
