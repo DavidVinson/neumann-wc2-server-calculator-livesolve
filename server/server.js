@@ -2,20 +2,23 @@ const express = require('express');
 const app = express();
 let PORT = process.env.PORT || 5000;
 
+//middleware to provide req.body used in the POST
 app.use(express.json());
 app.use(express.static('server/public'));
 
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = []
-
+let calculations = [{ numOne: 25, numTwo: 10, operator: '+', result: 35 }];
 
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
+app.get('/calculations', (req, res) => {
+  console.log('GET calculations');
+  res.send(calculations);
+});
 
 // POST /calculations
-
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸
@@ -39,10 +42,10 @@ const server = app.listen(PORT, () => {
 // absolutely no need for you to reason about this.
 app.closeServer = () => {
   server.close();
-}
+};
 
 app.setCalculations = (calculationsToSet) => {
   calculations = calculationsToSet;
-}
+};
 
 module.exports = app;
