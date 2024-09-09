@@ -134,6 +134,8 @@ function resetForm() {
   document.getElementById('calc-form').reset();
   //   document.getElementById('numOneInput').value = '';
   //   document.getElementById('num-two-input').value = '';
+
+  //ensure operator is reset as well
   operator = '+';
 }
 
