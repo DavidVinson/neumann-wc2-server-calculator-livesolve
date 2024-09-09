@@ -12,23 +12,7 @@ function fetchCalculations() {
     .then((response) => {
       const calcData = response.data;
       console.log('Calculations data array', calcData);
-      const calcHistory = document.getElementById('resultHistory');
-      const calcRecent = document.getElementById('recentResult');
-      calcRecent.innerHTML = '';
-      if (calcData.length > 0) {
-        calcRecent.innerHTML = `<h2>${calcData[calcData.length - 1].result}</h2>`;
-        calcHistory.innerHTML = '';
-        for (let calc of calcData) {
-          console.log('calculation obj', calc);
-          calcHistory.innerHTML += `
-        <ul>
-            <li>${calc.numOne} ${calc.operator} ${calc.numTwo} = ${calc.result}</li>
-        </ul>`;
-        }
-      } else {
-        console.log('No calculations to grab.');
-        calcHistory.innerHTML = `<ul><li>No calculations to grab</li></ul>`;
-      }
+      renderDOM(calcData);
     })
     .catch((error) => {
       console.error('Error in fetching Calculations', error);
@@ -78,6 +62,26 @@ function clearHistory(event) {
     .catch((error) => {
       console.error('Error Clearing Calc History', error);
     });
+}
+
+function renderDOM(calcData) {
+  const calcHistory = document.getElementById('resultHistory');
+  const calcRecent = document.getElementById('recentResult');
+  calcRecent.innerHTML = '';
+  if (calcData.length > 0) {
+    calcRecent.innerHTML = `<h2>${calcData[calcData.length - 1].result}</h2>`;
+    calcHistory.innerHTML = '';
+    for (let calc of calcData) {
+      console.log('calculation obj', calc);
+      calcHistory.innerHTML += `
+      <ul>
+          <li>${calc.numOne} ${calc.operator} ${calc.numTwo} = ${calc.result}</li>
+      </ul>`;
+    }
+  } else {
+    console.log('No calculations to grab.');
+    calcHistory.innerHTML = `<ul><li>No calculations to grab</li></ul>`;
+  }
 }
 
 onReady();
