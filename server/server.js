@@ -29,17 +29,14 @@ app.post('/calculations', (req, res) => {
     result: 0,
   };
   if (req.body.operator === '+') {
-    //add req.body.numOne and req.body.numTwo
+    //add req.body.numOne and req.body.numTwo and set the result value to the obj2.result property
     obj2.result = Number(req.body.numOne) + Number(req.body.numTwo);
   } else if (req.body.operator === '-') {
     obj2.result = Number(req.body.numOne) - Number(req.body.numTwo);
   } else if (req.body.operator === '*') {
     obj2.result = Number(req.body.numOne) * Number(req.body.numTwo);
-    // res.status(201);
-    //jacob
   } else if (req.body.operator === '/') {
     obj2.result = Number(req.body.numOne) / Number(req.body.numTwo);
-    //jenny
   }
 
   console.log('calc obj', obj2);
