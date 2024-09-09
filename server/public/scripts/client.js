@@ -11,8 +11,18 @@ function onReady() {
 //get calculation data from server and display on the DOM
 function fetchCalculations() {
   //this is short-axios GET method
-  axios
-    .get('/calculations')
+  //   axios
+  //     .get('/calculations')
+  //     .then((response) => {
+  //       //upon success response from server, use the response.data
+  //       const calcData = response.data;
+  //       console.log('Calculations data array', calcData);
+  //       renderDOM(calcData);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error in fetching Calculations', error);
+  //     });
+  axios({ method: 'GET', url: '/calculations' })
     .then((response) => {
       //upon success response from server, use the response.data
       const calcData = response.data;
@@ -47,32 +57,32 @@ function addCalculation(event) {
 
     console.log('newCalculation', newCalculation);
     //send a POST request to server (short-hand axios post)
-    axios
-      .post('/calculations', newCalculation)
+    // axios
+    //   .post('/calculations', newCalculation)
+    //   .then((response) => {
+    //     console.log('successful post');
+    //     //GET data
+    //     fetchCalculations();
+    //     //clear forms
+    //     resetForm();
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error submitting calculation');
+    //   });
+
+    //longhand axios POST
+    axios({
+      method: 'POST',
+      url: '/calculations',
+      data: newCalculation,
+    })
       .then((response) => {
-        console.log('successful post');
-        //GET data
+        console.log('get updates from server...');
         fetchCalculations();
-        //clear forms
-        resetForm();
       })
       .catch((error) => {
         console.error('Error submitting calculation');
       });
-
-    //longhand axios POST
-    //   axios({
-    //     method: 'POST',
-    //     url: '/calculations',
-    //     data: newCalculation,
-    //   })
-    //     .then((response) => {
-    //       console.log('get updates from server...');
-    //       fetchCalculations();
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error submitting calculation');
-    //     });
   }
 }
 
@@ -87,6 +97,7 @@ function setOperator(event) {
 function clearHistory(event) {
   //delete request to server
   console.log('clear server calc history');
+  //short-hand axios delete method
   axios
     .delete('/calculations')
     .then((response) => {
